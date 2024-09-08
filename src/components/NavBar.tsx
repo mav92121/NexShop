@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 
 const NavBar = () => {
   const path = usePathname();
-  console.log("path -> ", path);
   return (
     <>
       <div className="bg-primary text-primary-foreground">
