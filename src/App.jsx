@@ -11,14 +11,10 @@ function App() {
   const fetchContries = async () => {
     const url = "https://restcountries.com/v3.1/all";
     try {
-      // const response = await fetch(url);
-      // const data = await response.json();
-      // setInitCountries(data);
-      // setContries(data);
       const data = await axios.get(url);
       console.log("data ", data);
       setInitCountries(data.data);
-    } catch {
+    } catch (error) {
       console.error(`Error fetching data: ${error?.message}`);
       setError(`Error fetching data: ${error?.message}`);
     }
