@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import "./App.css";
 import { useState } from "react";
+import axios from "axios";
 
 function App() {
   const [countries, setContries] = useState([]);
@@ -10,13 +11,16 @@ function App() {
   const fetchContries = async () => {
     const url = "https://restcountries.com/v3.1/all";
     try {
-      const response = await fetch(url);
-      const data = await response.json();
-      setInitCountries(data);
-      setContries(data);
+      // const response = await fetch(url);
+      // const data = await response.json();
+      // setInitCountries(data);
+      // setContries(data);
+      const data = await axios.get(url);
+      console.log("data ", data);
+      setInitCountries(data.data);
     } catch {
-      console.error(`Error fetching data: ${error.message}`);
-      setError(`Error fetching data: ${error.message}`);
+      console.error(`Error fetching data: ${error?.message}`);
+      setError(`Error fetching data: ${error?.message}`);
     }
   };
   useEffect(() => {
