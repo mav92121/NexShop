@@ -7,26 +7,20 @@ function App() {
   const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
   const [initCountries, setInitCountries] = useState([]);
-  useEffect(() => {
-    // const url = `https://xcountries-backend.azurewebsites.net/all`;  
+  const fetchContries = async () => {
     const url = "https://restcountries.com/v3.1/all";
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP status ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("new data ", data);
-        setInitCountries(data);
-        setContries(data);
-        setError(null);
-      })
-      .catch((error) => {
-        console.error(`Error fetching data: ${error.message}`);
-        setError(`Error fetching data: ${error.message}`);
-      });
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setInitCountries(data);
+      setContries(data);
+    } catch {
+      console.error(`Error fetching data: ${error.message}`);
+      setError(`Error fetching data: ${error.message}`);
+    }
+  };
+  useEffect(() => {
+    fetchContries();
   }, []);
   useEffect(() => {
     if (search === "") {
